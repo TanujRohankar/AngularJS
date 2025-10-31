@@ -16,5 +16,7 @@ export class RegisterComponent {
                      'S',
                      false,['T', 'B']);
     constructor() {  }
+  onSubmit() : void{
 
+  }
 }

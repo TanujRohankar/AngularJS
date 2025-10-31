@@ -12,5 +12,10 @@ export class AuthService {
 
  logout(): any {   }
  getUser(): any {   }
- isLoggedIn(): boolean {   return false;  }
+ isLoggedIn(user:string, password:string): boolean {   
+  if(user === "tanuj.rohankar@transflower.in" && password === "seed")
+  {
+    return true;
+  }
+  return false;  }
 }
