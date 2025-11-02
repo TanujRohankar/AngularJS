@@ -1,6 +1,6 @@
-<div class="container mt-4">
+<div class="container mt-4" *ngIf="cartItems.length > 0; else emptyCart">
   <h2 class="mb-3 text-center">🛒 My Shopping Cart</h2>
-  <div  class="card shadow-sm">
+  <div class="card shadow-sm">
     <div class="card-body p-0">
       <table class="table table-striped align-middle mb-0">
         <thead class="table-dark text-center">
@@ -14,39 +14,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of cartItems">
             <td class="text-center">
-              <img src="/assets/images/rose.jpg" width="60" height="60" class="rounded">
+              <img [src]="item.imageUrl" width="60" height="60" class="rounded">
             </td>
-            <td>rose</td>
-            <td class="text-end">₹ 15</td>
+            <td>{{ item.title }}</td>
+            <td class="text-end">₹ {{ item.price }}</td>
             <td class="text-center">
-              <input type="number" class="form-control text-center mx-auto"
+              <input type="number"
+                     class="form-control text-center mx-auto"
                      style="width: 80px;"
-                     min="1" value="2"/>
+                     min="1"
+                     [value]="item.quantity"
+                     (change)="updateQuantity(item.productId, $event)">
             </td>
-            <td class="text-end">₹30</td>
+            <td class="text-end">₹ {{ item.price * item.quantity }}</td>
             <td class="text-center">
-              <button class="btn btn-sm btn-outline-danger">
-                <i class="bi bi-trash"></i> Remove
-              </button>
-            </td>
-          </tr>
-
-           <tr>
-            <td class="text-center">
-              <img src="/assets/images/lotus.jpg" width="60" height="60" class="rounded">
-            </td>
-            <td>lotus</td>
-            <td class="text-end">₹ 30</td>
-            <td class="text-center">
-              <input type="number" class="form-control text-center mx-auto"
-                     style="width: 80px;"
-                     min="1" value="4"/>
-            </td>
-            <td class="text-end">₹120</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-danger">
+              <button class="btn btn-sm btn-outline-danger"
+                      (click)="removeItem(item.productId)">
                 <i class="bi bi-trash"></i> Remove
               </button>
             </td>
@@ -56,9 +41,9 @@
     </div>
 
     <div class="card-footer d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">Total: <span class="text-success fw-bold">₹150</span></h5>
+      <h5 class="mb-0">Total: <span class="text-success fw-bold">₹ {{ totalPrice }}</span></h5>
       <div>
-        <button class="btn btn-outline-danger me-2" >
+        <button class="btn btn-outline-danger me-2" (click)="clearCart()">
           <i class="bi bi-x-circle"></i> Clear Cart
         </button>
         <button class="btn btn-success">
@@ -68,3 +53,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #emptyCart>
+  <div class="text-center mt-5">
+    <h4>Your cart is empty 🛍️</h4>
+  </div>
+</ng-template>

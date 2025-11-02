@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { Item as CartItem } from '../models/Item';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { CartService } from '../cart.service';
+import { Item } from '../models/Item';
 
 @Component({
   selector: 'app-cart',
@@ -11,15 +11,33 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent {
- cartItems: CartItem[] = [];
+export class CartComponent implements OnInit {
+  cartItems: Item[] = [];
   totalPrice = 0;
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
-  loadCart() {}
+  ngOnInit() {
+    this.cartService.cart$.subscribe(items => {
+      this.cartItems = items;
+      this.calculateTotal();
+    });
+  }
 
-  removeItem(id: number) { }
+  calculateTotal() {
+    this.totalPrice = this.cartService.getTotalPrice();
+  }
 
-  clearCart() { }
+  removeItem(id: number) {
+    this.cartService.removeFromCart(id);
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
+  }
+
+  updateQuantity(id: number, event: any) {
+    const qty = +event.target.value;
+    this.cartService.updateQuantity(id, qty);
+  }
 }

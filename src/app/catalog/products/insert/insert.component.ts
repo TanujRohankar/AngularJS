@@ -21,6 +21,7 @@ export class InsertComponent {
   onSubmit(form: any) {
     if (form.valid) {
       console.log('Product Saved:', this.product);
+      sessionStorage.setItem('productData',JSON.stringify(this.product) )
       // You can emit or call service to save product
     }
   }

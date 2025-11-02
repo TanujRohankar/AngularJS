@@ -1,57 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Item as CartItem } from './models/Item';
-@Injectable({
-  providedIn: 'root'
-})
+import { BehaviorSubject } from 'rxjs';
+import { Product } from '../catalog/models/product';
+import { Item } from './models/Item';
+
+@Injectable({ providedIn: 'root' })
 export class CartService {
+  private cartItems: Item[] = [];
+  private cartSubject = new BehaviorSubject<Item[]>(this.cartItems);
+  cart$ = this.cartSubject.asObservable();
 
-private storageKey = 'shoppingCart';
-
-  constructor() {
-    // Initialize sessionStorage with demo data if empty
-    //if (!sessionStorage.getItem(this.storageKey)) {
-  
-     
+  addToCart(product: Product) {
+    const existing = this.cartItems.find(i => i.productId === product.id);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      const newItem = new Item(
+        product.id,
+        product.title,
+        product.price,
+        1,
+        product.imageurl // make sure this matches your Product model key
+      );
+      this.cartItems.push(newItem);
+    }
+    this.cartSubject.next([...this.cartItems]);
   }
 
-  //Add Product to Cart
-  addToCart(item: CartItem): void {
-     
+  removeFromCart(id: number) {
+    this.cartItems = this.cartItems.filter(i => i.productId !== id);
+    this.cartSubject.next([...this.cartItems]);
   }
 
-  //Get All Cart Items
-  getCartItems(): CartItem[] {
-    
-    return [];
+  clearCart() {
+    this.cartItems = [];
+    this.cartSubject.next([]);
   }
 
-  //Update Quantity
-  updateQuantity(productId: number, quantity: number): void {
-     
+  updateQuantity(id: number, qty: number) {
+    const item = this.cartItems.find(i => i.productId === id);
+    if (item) {
+      item.quantity = qty > 0 ? qty : 1;
+      this.cartSubject.next([...this.cartItems]);
+    }
   }
 
-  //Remove Product from Cart
-  removeFromCart(productId: number): void {
-   
-  }
-
-  //Clear Entire Cart
-  clearCart(): void {
-  
-  }
-
-  //Calculate Total Items
-  getTotalItems(): number {
-  return 45;
-  }
-
-  //Calculate Total Amount
   getTotalPrice(): number {
-    return 12;
-  }
-
-  // Private helper
-  private saveCart(cart: CartItem[]): void {
-    //save data to sessionStorage
+    return this.cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
   }
 }
