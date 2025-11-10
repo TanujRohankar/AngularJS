@@ -17,20 +17,9 @@ export class Credential  {
 export class SignInComponent {
 
   isValidUser:boolean=false;
-  user: Credential=new Credential("tanuj.rohankar@transflower.in","seed");
+  user: Credential=new Credential("ravi.tambade@transflower.in","seed");
  
   constructor(private svc:AuthService) {    }  //DI
-
-  onSubmit(form:any):void{
-    this.isValidUser = this.svc.isLoggedIn(form.userEmail, form.userPassword)
-    if(this.isValidUser) 
-    {
-      console.log("Valid User");
-      console.log(form.userEmail);
-      console.log(form.userPassword);
-    }
-    else console.log(form.userEmail+" is a invalid user");
-  }
 
  
 }

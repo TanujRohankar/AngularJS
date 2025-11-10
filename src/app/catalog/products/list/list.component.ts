@@ -9,7 +9,7 @@ import { DetailsComponent } from '../details/details.component';
   standalone: true,
   imports: [CommonModule, DetailsComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'] // ✅ must be "styleUrls"
+  styleUrl: './list.component.css'
 })
 export class ListComponent implements OnInit {
   products: Product[] = [];

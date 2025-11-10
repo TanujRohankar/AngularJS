@@ -1,38 +1,20 @@
 import { Component } from '@angular/core';
+import { Customer } from '../models/customer';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Customer } from '../models/customer';
-import { Router  } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  model = new Customer(
-    'Ravi',
-    'Tambade',
-    'ravi.tambade@transflower.in',
-    9881735801,
-    28,
-    new Date(1975, 8, 18),
-    'Pune',
-    'gold',
-    false,
-    ['Facebook', 'Twitter']
-  );
+    model = new Customer('Ravi','Tambade','ravi.tambade@transflower.in',9881735801,28,
+                     new Date(1975,18,8),'Pune',
+                     'S',
+                     false,['T', 'B']);
+    constructor() {  }
 
-  constructor(private router: Router) {}
-
-  onSubmit(): void {
-    console.log('✅ Form Submitted');
-    console.log('Form Data:', this.model);
-    alert('Registered Successfully!');
-     // Save to localStorage
-     sessionStorage.setItem('customerData', JSON.stringify(this.model));
-    this.router.navigate(['../sign-in']);
-  }
 }

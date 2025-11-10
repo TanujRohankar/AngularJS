@@ -12,17 +12,5 @@ export class AuthService {
 
  logout(): any {   }
  getUser(): any {   }
- isLoggedIn(user:string, password:string): boolean { 
-  const storeData =  sessionStorage.getItem('customerData');
-  if(storeData) 
-  {
-  const userData = JSON.parse(storeData);
-  if(user === userData.email && password === "seed")
-  {
-    return true;
-  }
-  return false;  }
-  return false;
-}
-
+ isLoggedIn(): boolean {   return false;  }
 }

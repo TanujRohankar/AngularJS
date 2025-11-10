@@ -1,0 +1,163 @@
+<form #regForm="ngForm" (ngSubmit)="onSubmit()">
+    <table>
+      <tr>
+        <td><label>First Name:</label></td>
+        <td>
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="model.firstName"
+            required
+            minlength="3"
+            maxlength="8"
+          />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Last Name:</label></td>
+        <td>
+          <input type="text" name="lastName" [(ngModel)]="model.lastName" />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Email:</label></td>
+        <td>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="model.email"
+            required
+          />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Birth Date:</label></td>
+        <td>
+          <input
+            type="date"
+            name="birthDate"
+            [(ngModel)]="model.birthDate"
+            required
+          />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Age:</label></td>
+        <td>
+          <input
+            type="number"
+            name="age"
+            [(ngModel)]="model.age"
+            required
+          />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Phone No:</label></td>
+        <td>
+          <input
+            type="text"
+            name="phoneNo"
+            [(ngModel)]="model.phoneNo"
+            required
+          />
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Location:</label></td>
+        <td>
+          <select
+            name="location"
+            [(ngModel)]="model.location"
+            required
+          >
+            <option value="Pune">Pune</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Bangalore">Bangalore</option>
+          </select>
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Membership:</label></td>
+        <td>
+          <label>
+            <input
+              type="radio"
+              name="memberShip"
+              value="gold"
+              [(ngModel)]="model.memberShip"
+            />
+            Gold
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="memberShip"
+              value="silver"
+              [(ngModel)]="model.memberShip"
+            />
+            Silver
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="memberShip"
+              value="platinum"
+              [(ngModel)]="model.memberShip"
+            />
+            Platinum
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Status:</label></td>
+        <td>
+          <label>
+            <input
+              type="checkbox"
+              name="isRegistered"
+              [(ngModel)]="model.isRegistered"
+            />
+            Is Registered
+          </label>
+        </td>
+      </tr>
+  
+      <tr>
+        <td><label>Source of Information:</label></td>
+        <td>
+          <select
+            multiple
+            name="socialStatus"
+            [(ngModel)]="model.socialStatus"
+          >
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Twitter">Twitter</option>
+            <option value="LinkedIn">LinkedIn</option>
+          </select>
+        </td>
+      </tr>
+  
+      <tr>
+        <td colspan="2">
+          <button type="submit">Submit</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  
+<hr />
+  
+
+  <h3>🧾 Live Form Data Preview</h3>
+  <pre>{{ model | json }}</pre> 
+  

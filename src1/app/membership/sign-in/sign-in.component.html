@@ -1,0 +1,27 @@
+<div >
+  <h1>Login</h1>
+
+   <div >   
+       <form #loginForm="ngForm"
+              (ngSubmit)="onSubmit(loginForm.value)">
+        <table>
+              <tr>
+                <td><label>Email:</label></td>
+                <td> 
+                  <input type="email" name="userEmail" [(ngModel)]="user.email"
+                         required  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                         #userEmail="ngModel" />
+              </tr>
+              <tr>
+                <td><label>Password:</label></td>
+                <input type="password" [(ngModel)]="user.password" name="userPassword"
+                #userPassword="ngModel" required />
+              
+              </tr>   
+              <tr>
+                  <td><button type="submit" > Submit</button> </td>
+              </tr>
+        </table>
+    </form>
+    </div>
+</div>
