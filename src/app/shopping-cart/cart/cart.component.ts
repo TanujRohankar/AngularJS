@@ -39,21 +39,24 @@ export class CartComponent implements OnInit {
         const numericId = Number(id); // ✅ convert string -> number
   
         // Get product details by ID (expects number)
-        const product = this.productService.getProductById(numericId);
-  
-        if (product) {
-          this.cartItems.push({
-            productId: product.id,
-            title: product.title,
-            price: product.price,
-            quantity: quantity,
-            imageUrl: product.imageurl
+        this.productService.getProductById(numericId).subscribe(
+          (product) => {
+            this.cartItems.push({
+              productId: product.id,
+              title: product.title,
+              price: product.unitprice,       // backend uses unitprice field
+              quantity: quantity,
+              imageUrl: product.imageurl
           });
-        }
+  
+            this.calculateTotal();
+          },
+          (err) => {
+            console.error('Error loading product:', err);
+          }
+        );
       }
     }
-  
-    this.calculateTotal();
   }
 
   /** ✅ Calculate total price of all items */

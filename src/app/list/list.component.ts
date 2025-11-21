@@ -3,11 +3,12 @@ import { ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../product.service';
 import { CounterComponent } from '../counter/counter.component';
+import { CustomModule } from '../custom/custom.module'
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, CounterComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, CounterComponent, CustomModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
@@ -20,7 +21,9 @@ products:any[]=[]
               private route: ActivatedRoute) {  }
 
   ngOnInit() {
-    this.products = this.svc.getAllProducts();
+    this.svc.getAllProducts().subscribe(
+       (data) => this.products = data
+    );
   }
 
 

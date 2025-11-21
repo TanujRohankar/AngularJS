@@ -21,8 +21,15 @@ currentProductId:any;
               private productService: ProductService) {  }
   
   ngOnInit() { 
-    this.currentProductId=this.route.snapshot.paramMap.get("id");
-    this.product=this.productService.getProductById(this.currentProductId);
+    this.productService.getProductById(this.currentProductId).subscribe(
+      (data) => {
+        this.product = data;
+      },
+      (err) => {
+        console.error('Error loading product:', err);
+      }
+    );
+    //this.product=this.productService.getProductById(this.currentProductId);
   };
  
   onUpdate(data:any){
